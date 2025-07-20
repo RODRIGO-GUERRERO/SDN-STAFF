@@ -21,7 +21,12 @@ const asignacionAutomaticaRoutes = require('./asignacionAutomaticaRoutes');
 const categoriaComercialRoutes = require('./categoriaComercialRoutes');
 const etiquetaLibreRoutes = require('./etiquetaLibreRoutes');
 const clasificacionExpositorRoutes = require('./clasificacionExpositorRoutes');
+
 const eventoFavoritoRoutes = require('./eventoFavoritoRoutes');
+
+// Nuevas rutas para sistema de credenciales
+const credencialRoutes = require('./credencialRoutes');
+const validationRoutes = require('./validationRoutes');
 
 // Configurar rutas existentes
 router.use('/auth', authRoutes); // Rutas de autenticación (públicas)
@@ -46,8 +51,19 @@ router.use('/categorias', categoriaComercialRoutes); // Gestión de categorías 
 router.use('/etiquetas', etiquetaLibreRoutes); // Gestión de etiquetas libres
 router.use('/clasificacion', clasificacionExpositorRoutes); // Clasificación de expositores
 
+
 // Configurar rutas para funcionalidades del visitante
 router.use('/visitante', eventoFavoritoRoutes); // Gestión de eventos favoritos
+
+// Configurar rutas del sistema de credenciales
+router.use('/credenciales', credencialRoutes); // Gestión de credenciales y QR
+router.use('/validaciones', validationRoutes); // Validación de credenciales
+
+// Configurar rutas de pre-registro
+router.use('/pre-registro', require('./preRegistroRoutes')); // Pre-registro de visitantes
+
+// Configurar rutas de reportes
+router.use('/reportes', require('./reportesRoutes')); // Reportes y analytics
 
 // Ruta de prueba
 router.get('/', (req, res) => {
