@@ -62,6 +62,28 @@ class ApiResponse {
   }
 
   /**
+   * Respuesta de conflicto
+   */
+  static conflict(res, message = 'Conflicto en la operación') {
+    return res.status(409).json({
+      success: false,
+      error: message,
+      timestamp: new Date().toISOString()
+    });
+  }
+
+  /**
+   * Respuesta prohibido
+   */
+  static forbidden(res, message = 'Acceso prohibido') {
+    return res.status(403).json({
+      success: false,
+      error: message,
+      timestamp: new Date().toISOString()
+    });
+  }
+
+  /**
    * Respuesta con paginación
    */
   static paginated(res, data, pagination, message = 'Datos obtenidos exitosamente') {

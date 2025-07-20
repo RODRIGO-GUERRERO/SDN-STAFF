@@ -32,6 +32,10 @@ import BuscarPorCategorias from "./pages/empresas/BuscarPorCategorias";
 import ListadoStands from "./pages/stands/ListadoStands";
 import AgregarStand from "./pages/stands/AgregarStand";
 import DashboardStands from "./pages/stands/DashboardStands";
+// Páginas del visitante
+import ExplorarEventos from "./pages/visitante/ExplorarEventos";
+import MisFavoritos from "./pages/visitante/MisFavoritos";
+import DetalleEvento from "./pages/visitante/DetalleEvento";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -43,7 +47,8 @@ function App() {
     location.pathname.startsWith("/profile") ||
     location.pathname.startsWith("/admin") ||
     location.pathname.startsWith("/empresas") ||
-    location.pathname.startsWith("/stands");
+    location.pathname.startsWith("/stands") ||
+    location.pathname.startsWith("/visitante");
 
   return (
     <AuthProvider>
@@ -155,6 +160,32 @@ function App() {
                   element={
                     <RoleRoute allowedRoles={["administrador", "manager"]}>
                       <DashboardStands />
+                    </RoleRoute>
+                  }
+                />
+
+                {/* Rutas del Visitante */}
+                <Route
+                  path="/visitante/eventos"
+                  element={
+                    <RoleRoute allowedRoles={["visitante", "administrador"]}>
+                      <ExplorarEventos />
+                    </RoleRoute>
+                  }
+                />
+                <Route
+                  path="/visitante/eventos/:id"
+                  element={
+                    <RoleRoute allowedRoles={["visitante", "administrador"]}>
+                      <DetalleEvento />
+                    </RoleRoute>
+                  }
+                />
+                <Route
+                  path="/visitante/favoritos"
+                  element={
+                    <RoleRoute allowedRoles={["visitante", "administrador"]}>
+                      <MisFavoritos />
                     </RoleRoute>
                   }
                 />

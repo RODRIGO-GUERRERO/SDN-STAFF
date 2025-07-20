@@ -21,6 +21,7 @@ const asignacionAutomaticaRoutes = require('./asignacionAutomaticaRoutes');
 const categoriaComercialRoutes = require('./categoriaComercialRoutes');
 const etiquetaLibreRoutes = require('./etiquetaLibreRoutes');
 const clasificacionExpositorRoutes = require('./clasificacionExpositorRoutes');
+const eventoFavoritoRoutes = require('./eventoFavoritoRoutes');
 
 // Configurar rutas existentes
 router.use('/auth', authRoutes); // Rutas de autenticación (públicas)
@@ -44,6 +45,9 @@ router.use('/asignaciones', asignacionAutomaticaRoutes); // Asignación automát
 router.use('/categorias', categoriaComercialRoutes); // Gestión de categorías comerciales
 router.use('/etiquetas', etiquetaLibreRoutes); // Gestión de etiquetas libres
 router.use('/clasificacion', clasificacionExpositorRoutes); // Clasificación de expositores
+
+// Configurar rutas para funcionalidades del visitante
+router.use('/visitante', eventoFavoritoRoutes); // Gestión de eventos favoritos
 
 // Ruta de prueba
 router.get('/', (req, res) => {

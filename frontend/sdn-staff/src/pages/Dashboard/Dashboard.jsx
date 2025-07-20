@@ -7,6 +7,7 @@ import autoTable from "jspdf-autotable";
 import "jspdf-autotable";
 import eventosService from '../../services/eventosService';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 Chart.register(...registerables);
 
@@ -344,7 +345,6 @@ const Dashboard = () => {
   };
 
   const visitorContent = () => {
-    const data = simulatedData.visitante;
     return (
       <>
         <div className="mb-8">
@@ -352,16 +352,19 @@ const Dashboard = () => {
             Panel de Visitante
           </h2>
 
-          {/* Estadísticas con mejor diseño */}
+          {/* Acciones rápidas */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-            <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-5 rounded-xl border border-blue-100 shadow-sm hover:shadow-md transition-shadow">
+            <Link
+              to="/visitante/eventos"
+              className="bg-gradient-to-r from-blue-50 to-blue-100 p-5 rounded-xl border border-blue-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+            >
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">
-                    Eventos Guardados
+                    Explorar Eventos
                   </p>
-                  <p className="text-3xl font-bold text-blue-800 mt-1">
-                    {data.stats.eventosGuardados}
+                  <p className="text-lg font-bold text-blue-800 mt-1">
+                    Descubrir
                   </p>
                 </div>
                 <div className="bg-blue-100 p-3 rounded-lg">
@@ -375,21 +378,52 @@ const Dashboard = () => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                   </svg>
                 </div>
               </div>
-            </div>
+            </Link>
+
+            <Link
+              to="/visitante/favoritos"
+              className="bg-gradient-to-r from-pink-50 to-pink-100 p-5 rounded-xl border border-pink-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">
+                    Mis Favoritos
+                  </p>
+                  <p className="text-lg font-bold text-pink-800 mt-1">
+                    Ver Lista
+                  </p>
+                </div>
+                <div className="bg-pink-100 p-3 rounded-lg">
+                  <svg
+                    className="w-6 h-6 text-pink-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </Link>
 
             <div className="bg-gradient-to-r from-green-50 to-green-100 p-5 rounded-xl border border-green-100 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">
-                    Próximos Eventos
+                    Eventos Activos
                   </p>
                   <p className="text-3xl font-bold text-green-800 mt-1">
-                    {data.stats.proximosEventos}
+                    Próximamente
                   </p>
                 </div>
                 <div className="bg-green-100 p-3 rounded-lg">
@@ -414,10 +448,10 @@ const Dashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">
-                    Eventos Pasados
+                    Empresas
                   </p>
-                  <p className="text-3xl font-bold text-purple-800 mt-1">
-                    {data.stats.eventosPasados}
+                  <p className="text-lg font-bold text-purple-800 mt-1">
+                    Explorar
                   </p>
                 </div>
                 <div className="bg-purple-100 p-3 rounded-lg">
@@ -431,33 +465,7 @@ const Dashboard = () => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-pink-50 to-pink-100 p-5 rounded-xl border border-pink-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Favoritos</p>
-                  <p className="text-3xl font-bold text-pink-800 mt-1">
-                    {data.stats.favoritos}
-                  </p>
-                </div>
-                <div className="bg-pink-100 p-3 rounded-lg">
-                  <svg
-                    className="w-6 h-6 text-pink-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
                     />
                   </svg>
                 </div>
@@ -465,126 +473,63 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Botones de exportación mejorados */}
-          <div className="flex space-x-3 mb-8">
-            <button
-              onClick={() => exportToExcel(data.events, "eventos_guardados")}
-              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg shadow transition-colors"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              Exportar a Excel
-            </button>
-            <button
-              onClick={() =>
-                exportToPDF(
-                  data.events,
-                  "Eventos Guardados",
-                  "eventos_guardados"
-                )
-              }
-              className="flex items-center bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg shadow transition-colors"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              Exportar a PDF
-            </button>
-          </div>
-
-          {/* Gráficos con mejor presentación */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-              <div className="p-5 border-b border-gray-100">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  Distribución de Eventos
-                </h3>
+          {/* Información del visitante */}
+          <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6 mb-6">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              Bienvenido al Panel de Visitante
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-medium text-gray-700 mb-2">¿Qué puedes hacer?</h4>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Explorar eventos disponibles
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Guardar eventos en favoritos
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Ver detalles de empresas expositoras
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Recibir notificaciones de eventos
+                  </li>
+                </ul>
               </div>
-              <div className="p-5" style={{ height: "300px" }}>
-                {renderChart(
-                  {
-                    labels: ["Guardados", "Próximos", "Pasados", "Favoritos"],
-                    datasets: [
-                      {
-                        data: [
-                          data.stats.eventosGuardados,
-                          data.stats.proximosEventos,
-                          data.stats.eventosPasados,
-                          data.stats.favoritos,
-                        ],
-                        backgroundColor: [
-                          "rgba(59, 130, 246, 0.7)",
-                          "rgba(16, 185, 129, 0.7)",
-                          "rgba(139, 92, 246, 0.7)",
-                          "rgba(236, 72, 153, 0.7)",
-                        ],
-                        borderColor: [
-                          "rgba(59, 130, 246, 1)",
-                          "rgba(16, 185, 129, 1)",
-                          "rgba(139, 92, 246, 1)",
-                          "rgba(236, 72, 153, 1)",
-                        ],
-                        borderWidth: 1,
-                      },
-                    ],
-                  },
-                  "pie"
-                )}
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-              <div className="p-5 border-b border-gray-100">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  Eventos Pasados vs Próximos
-                </h3>
-              </div>
-              <div className="p-5" style={{ height: "300px" }}>
-                {renderChart(
-                  {
-                    labels: ["Eventos Pasados", "Próximos Eventos"],
-                    datasets: [
-                      {
-                        label: "Cantidad",
-                        data: [
-                          data.stats.eventosPasados,
-                          data.stats.proximosEventos,
-                        ],
-                        backgroundColor: [
-                          "rgba(139, 92, 246, 0.7)",
-                          "rgba(59, 130, 246, 0.7)",
-                        ],
-                        borderColor: [
-                          "rgba(139, 92, 246, 1)",
-                          "rgba(59, 130, 246, 1)",
-                        ],
-                        borderWidth: 1,
-                      },
-                    ],
-                  },
-                  "bar"
-                )}
+              <div>
+                <h4 className="font-medium text-gray-700 mb-2">Próximas funcionalidades</h4>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Eventos guardados para revisión
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Exploración de empresas por categorías
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Sistema de recomendaciones
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
