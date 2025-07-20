@@ -14,7 +14,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5a2 2 0 012-2h2a2 2 0 012 2v2H8V5z" />
         </svg>
       ), 
-      roles: ['user', 'administrador'] 
+      roles: ['Usuario', 'administrador'] 
     },
     { 
       path: '/profile', 
@@ -24,7 +24,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
         </svg>
       ), 
-      roles: ['user', 'administrador'] 
+      roles: ['Usuario', 'administrador'] 
     },
     { 
       path: '/admin/roles', 
@@ -157,150 +157,144 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         
         {/* Navegación principal */}
         <nav className="flex-1 p-6 space-y-8">
-          {/* Menú principal */}
-          <div>
-            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
-              Principal
-            </h3>
-            <ul className="space-y-1">
-              {navItems.map((item) => (
-                item.roles.some(role => hasRole(role)) && (
-                  <li key={item.path}>
-                    <NavLink
-                      to={item.path}
-                      className={({ isActive }) => 
-                        `flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                          isActive 
-                            ? 'bg-blue-600 text-white shadow-lg' 
-                            : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                        }`
-                      }
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <span className="mr-3">{item.icon}</span>
-                      {item.name}
-                    </NavLink>
-                  </li>
-                )
-              ))}
-            </ul>
-          </div>
-
-          {/* Sección Dashboard */}
-          <div>
-            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
-              Dashboard
-            </h3>
-            <ul className="space-y-1">
-              <li>
-                <NavLink
-                  to="/dashboard"
-                  className={({ isActive }) =>
-                    `flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                      isActive 
-                        ? 'bg-indigo-600 text-white shadow-lg' 
-                        : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                    }`
-                  }
-                  onClick={() => setSidebarOpen(false)}
-                >
-                  <span className="mr-3">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5a2 2 0 012-2h2a2 2 0 012 2v2H8V5z" />
-                    </svg>
-                  </span>
-                  Dashboard
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-
-          {/* Menú de Empresas Expositoras */}
-          {(hasRole('administrador') || hasRole('manager')) && (
-            <div>
-              <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                Empresas Expositoras
-              </h3>
-              <ul className="space-y-1">
-                {empresaMenu.map((item) => (
-                  <li key={item.path}>
-                    <NavLink
-                      to={item.path}
-                      className={({ isActive }) =>
-                        `flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                          isActive 
-                            ? 'bg-green-600 text-white shadow-lg' 
-                            : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                        }`
-                      }
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <span className="mr-3">{item.icon}</span>
-                      {item.name}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Menú para USUARIO */}
+          {hasRole('Usuario') && !hasRole('administrador') && (
+            <>
+              <div>
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                  Principal
+                </h3>
+                <ul className="space-y-1">
+                  {navItems.filter(item => ['Usuario'].some(role => item.roles.includes(role) && (item.name === 'Perfil' || item.name === 'Dashboard'))).map((item) => (
+                    <li key={item.path}>
+                      <NavLink
+                        to={item.path}
+                        className={({ isActive }) => 
+                          `flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            isActive 
+                              ? 'bg-blue-600 text-white shadow-lg' 
+                              : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                          }`
+                        }
+                        onClick={() => setSidebarOpen(false)}
+                      >
+                        <span className="mr-3">{item.icon}</span>
+                        {item.name}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Menú de Exploración solo para usuario */}
+              <div>
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                  Exploración
+                </h3>
+                <ul className="space-y-1">
+                  {visitanteMenu.map((item) => (
+                    <li key={item.path}>
+                      <NavLink
+                        to={item.path}
+                        className={({ isActive }) =>
+                          `flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            isActive 
+                              ? 'bg-pink-600 text-white shadow-lg' 
+                              : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                          }`
+                        }
+                        onClick={() => setSidebarOpen(false)}
+                      >
+                        <span className="mr-3">{item.icon}</span>
+                        {item.name}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
           )}
 
-          {/* Menú de Stands */}
-          {(hasRole('administrador') || hasRole('manager') || hasRole('staff')) && (
-            <div>
-              <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                Gestión de Stands
-              </h3>
-              <ul className="space-y-1">
-                {standsMenu.map((item) => (
-                  <li key={item.path}>
-                    <NavLink
-                      to={item.path}
-                      className={({ isActive }) =>
-                        `flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                          isActive 
-                            ? 'bg-purple-600 text-white shadow-lg' 
-                            : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                        }`
-                      }
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <span className="mr-3">{item.icon}</span>
-                      {item.name}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Menú del Visitante */}
-          {(hasRole('visitante') || hasRole('administrador')) && (
-            <div>
-              <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                Exploración
-              </h3>
-              <ul className="space-y-1">
-                {visitanteMenu.map((item) => (
-                  <li key={item.path}>
-                    <NavLink
-                      to={item.path}
-                      className={({ isActive }) =>
-                        `flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                          isActive 
-                            ? 'bg-pink-600 text-white shadow-lg' 
-                            : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                        }`
-                      }
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <span className="mr-3">{item.icon}</span>
-                      {item.name}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Menú para ADMINISTRADOR */}
+          {hasRole('administrador') && (
+            <>
+              <div>
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                  Principal
+                </h3>
+                <ul className="space-y-1">
+                  {navItems.filter(item => item.roles.includes('administrador')).map((item) => (
+                    <li key={item.path}>
+                      <NavLink
+                        to={item.path}
+                        className={({ isActive }) => 
+                          `flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            isActive 
+                              ? 'bg-blue-600 text-white shadow-lg' 
+                              : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                          }`
+                        }
+                        onClick={() => setSidebarOpen(false)}
+                      >
+                        <span className="mr-3">{item.icon}</span>
+                        {item.name}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Menú de Empresas Expositoras */}
+              <div>
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                  Empresas Expositoras
+                </h3>
+                <ul className="space-y-1">
+                  {empresaMenu.map((item) => (
+                    <li key={item.path}>
+                      <NavLink
+                        to={item.path}
+                        className={({ isActive }) =>
+                          `flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            isActive 
+                              ? 'bg-green-600 text-white shadow-lg' 
+                              : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                          }`
+                        }
+                        onClick={() => setSidebarOpen(false)}
+                      >
+                        <span className="mr-3">{item.icon}</span>
+                        {item.name}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Menú de Stands */}
+              <div>
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                  Gestión de Stands
+                </h3>
+                <ul className="space-y-1">
+                  {standsMenu.map((item) => (
+                    <li key={item.path}>
+                      <NavLink
+                        to={item.path}
+                        className={({ isActive }) =>
+                          `flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            isActive 
+                              ? 'bg-purple-600 text-white shadow-lg' 
+                              : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                          }`
+                        }
+                        onClick={() => setSidebarOpen(false)}
+                      >
+                        <span className="mr-3">{item.icon}</span>
+                        {item.name}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
           )}
         </nav>
         

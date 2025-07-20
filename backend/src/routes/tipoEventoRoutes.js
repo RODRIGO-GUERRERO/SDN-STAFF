@@ -5,7 +5,7 @@ const { authenticate, authorize } = require('../middlewares/auth');
 const { auditCreate, auditUpdate, auditDelete } = require('../middlewares/audit');
 
 // Obtener todos los tipos de evento (público para visitantes)
-router.get('/', authenticate, authorize(['administrador', 'manager', 'visitante']), TipoEventoController.getAllTiposEvento);
+router.get('/', authenticate, authorize(['administrador', 'manager', 'visitante', 'Usuario']), TipoEventoController.getAllTiposEvento);
 
 // Obtener estadísticas de tipos de evento
 router.get('/stats', authenticate, authorize(['administrador']), TipoEventoController.getTipoEventoStats);
@@ -20,7 +20,7 @@ router.get('/eliminados', authenticate, authorize(['administrador']), TipoEvento
 router.post('/:id/restore', authenticate, authorize(['administrador']), TipoEventoController.restoreTipoEvento);
 
 // Obtener tipo de evento por ID (público para visitantes)
-router.get('/:id', authenticate, authorize(['administrador', 'manager', 'visitante']), TipoEventoController.getTipoEventoById);
+router.get('/:id', authenticate, authorize(['administrador', 'manager', 'visitante', 'Usuario']), TipoEventoController.getTipoEventoById);
 
 // Obtener tipo de evento por nombre
 router.get('/nombre/:nombre', authenticate, authorize(['administrador', 'manager']), TipoEventoController.getTipoEventoByNombre);

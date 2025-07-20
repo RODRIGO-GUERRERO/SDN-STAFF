@@ -168,7 +168,7 @@ function App() {
                 <Route
                   path="/visitante/eventos"
                   element={
-                    <RoleRoute allowedRoles={["visitante", "administrador"]}>
+                    <RoleRoute allowedRoles={["visitante", "administrador", "Usuario"]}>
                       <ExplorarEventos />
                     </RoleRoute>
                   }
@@ -176,7 +176,7 @@ function App() {
                 <Route
                   path="/visitante/eventos/:id"
                   element={
-                    <RoleRoute allowedRoles={["visitante", "administrador"]}>
+                    <RoleRoute allowedRoles={["visitante", "administrador", "Usuario"]}>
                       <DetalleEvento />
                     </RoleRoute>
                   }
@@ -184,7 +184,7 @@ function App() {
                 <Route
                   path="/visitante/favoritos"
                   element={
-                    <RoleRoute allowedRoles={["visitante", "administrador"]}>
+                    <RoleRoute allowedRoles={["visitante", "administrador", "Usuario"]}>
                       <MisFavoritos />
                     </RoleRoute>
                   }

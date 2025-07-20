@@ -538,6 +538,86 @@ const Dashboard = () => {
     );
   };
 
+  const usuarioContent = () => {
+    return (
+      <>
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">
+            Panel de Usuario
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+            <Link
+              to="/visitante/eventos"
+              className="bg-gradient-to-r from-blue-50 to-blue-100 p-5 rounded-xl border border-blue-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">
+                    Explorar Eventos
+                  </p>
+                  <p className="text-lg font-bold text-blue-800 mt-1">
+                    Descubrir
+                  </p>
+                </div>
+                <div className="bg-blue-100 p-3 rounded-lg">
+                  <svg
+                    className="w-6 h-6 text-blue-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </Link>
+            <Link
+              to="/visitante/favoritos"
+              className="bg-gradient-to-r from-pink-50 to-pink-100 p-5 rounded-xl border border-pink-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">
+                    Mis Favoritos
+                  </p>
+                  <p className="text-lg font-bold text-pink-800 mt-1">
+                    Ver Lista
+                  </p>
+                </div>
+                <div className="bg-pink-100 p-3 rounded-lg">
+                  <svg
+                    className="w-6 h-6 text-pink-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6 mb-6">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              Bienvenido al Panel de Usuario
+            </h3>
+            <p className="text-gray-600">Desde aquí puedes explorar eventos, guardar tus favoritos y gestionar tu perfil.</p>
+          </div>
+        </div>
+      </>
+    );
+  };
+
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl font-extrabold text-center text-indigo-700 mb-8">
@@ -551,6 +631,7 @@ const Dashboard = () => {
         {hasRole("organizador") && organizerContent()}
         {hasRole("expositor") && exhibitorContent()}
         {hasRole("visitante") && visitorContent()}
+        {hasRole("Usuario") && usuarioContent()}
       </div>
     </div>
   );

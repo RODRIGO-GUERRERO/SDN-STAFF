@@ -12,16 +12,16 @@ router.get('/public/url/:url', EventoController.getEventoByUrl);
 router.get('/check-url/:url', authenticate, EventoController.verificarUrlAmigable);
 
 // Obtener todos los eventos (público para visitantes, restringido para otros roles)
-router.get('/', authenticate, authorize(['administrador', 'manager', 'visitante']), EventoController.getAllEventos);
+router.get('/', authenticate, authorize(['administrador', 'manager', 'visitante', 'Usuario']), EventoController.getAllEventos);
 
 // Obtener estadísticas de eventos
 router.get('/stats', authenticate, authorize(['administrador']), EventoController.getEventoStats);
 
 // Obtener eventos próximos (público para visitantes)
-router.get('/proximos', authenticate, authorize(['administrador', 'manager', 'visitante']), EventoController.getEventosProximos);
+router.get('/proximos', authenticate, authorize(['administrador', 'manager', 'visitante', 'Usuario']), EventoController.getEventosProximos);
 
 // Obtener eventos activos (público para visitantes)
-router.get('/activos', authenticate, authorize(['administrador', 'manager', 'visitante']), EventoController.getEventosActivos);
+router.get('/activos', authenticate, authorize(['administrador', 'manager', 'visitante', 'Usuario']), EventoController.getEventosActivos);
 
 // Vista previa del evento
 router.get('/:id/preview', authenticate, authorize(['administrador', 'manager']), EventoController.previewEvento);
@@ -33,7 +33,7 @@ router.post('/:id/duplicate', authenticate, authorize(['administrador', 'manager
 router.post('/:id/restore', authenticate, authorize(['administrador']), EventoController.restoreEvento);
 
 // Obtener evento por ID (público para visitantes, restringido para otros roles)
-router.get('/:id', authenticate, authorize(['administrador', 'manager', 'visitante']), EventoController.getEventoById);
+router.get('/:id', authenticate, authorize(['administrador', 'manager', 'visitante', 'Usuario']), EventoController.getEventoById);
 
 // Crear nuevo evento
 router.post('/', authenticate, authorize(['administrador', 'manager']), auditCreate, EventoController.createEvento);
